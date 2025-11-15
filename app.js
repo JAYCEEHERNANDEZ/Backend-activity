@@ -1,13 +1,17 @@
 import express from 'express';
 import 'dotenv/config.js';
+import cors from 'cors';
 import bookRoutes from './routers/BookRoutes.js';
-import studentRoutes from './routers/StudsRoutes.js';
+import studentRoutes from './routers/StudRoutes.js';
 
 const app = express();
 
-app.use(express.json());
+let corsOptions = {
+    origin: process.env.ORIGIN
+}
 
-// const port = 4000;
+app.use(express.json());
+app.use(cors(corsOptions));
 
 try {
     app.listen(process.env.PORT || 3000, () => {
@@ -17,10 +21,8 @@ try {
     console.log(e);
 }
 
-app.use('/books', bookRoutes);
+app.use('/book', bookRoutes);
 
-app.use('/students', studentRoutes);
+app.use('/student', studentRoutes);
 
-// app.get('/jeyc', async (request, response) => {
-//     response.status(200).json({message: "Hello Im Jeyc"});
-// });
+
